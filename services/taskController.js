@@ -28,7 +28,6 @@ async function postTask(req, res) {
   try {
     const { title, description, startTime } = req.body;
 
-    // Pengecekan apakah input tidak boleh kosong
     if (!title || !description) {
       return res.status(400).json({
         message: "Title and description are required",
@@ -65,14 +64,12 @@ async function updateTask(req, res) {
       status: status
     };
 
-    // Update data todo di database menggunakan Sequelize
     const updatedTodo = await TodoModel.update(updateTodoData, {
       where: {
         id: todoId
       }
     });
 
-    // Periksa apakah ada baris yang diperbarui
     if (updatedTodo[0] === 0) {
       return res.status(404).json({
         message: "Todo not found",
